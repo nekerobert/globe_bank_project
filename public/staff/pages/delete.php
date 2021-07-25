@@ -2,6 +2,9 @@
 
 require_once('../../../private/initialize.php');
 
+//admin must be logged in before performing any operation
+require_login();
+
 if(!isset($_GET['id'])) {
   redirect_to(url_for('/staff/pages/index.php'));
 }
@@ -10,6 +13,7 @@ $id = $_GET['id'];
 if(is_post_request()) {
 
   $result = delete_page($id);
+  $_SESSION['message'] = 'The Page was deleted successfully,';
   redirect_to(url_for('/staff/pages/index.php'));
 
 } else {

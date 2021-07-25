@@ -1,6 +1,10 @@
 <?php require_once('../../../private/initialize.php'); ?>
 
 <?php
+
+//admin must be logged in before performing any operation
+require_login();
+
 // $id = isset($_GET['id']) ? $_GET['id'] : '1';
 $id = $_GET['id'] ?? '1'; // PHP > 7.0
 
@@ -18,6 +22,10 @@ $page = find_page_by_id($id);
   <div class="page show">
 
     <h1>Page: <?php echo h($page['menu_name']); ?></h1>
+    <!-- show page preview to staff when visible is turned off -->
+    <div class="actions">
+      <a class="action" href="<?php echo url_for('/index.php?id=' . h(u($page['id'])) . '&preview=true'); ?>" target="_blank">Preview</a>
+    </div>
 
     <div class="attributes">
       <?php $subject = find_subject_by_id($page['subject_id']); ?>
